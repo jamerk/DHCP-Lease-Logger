@@ -1,9 +1,11 @@
 #!/bin/bash
 
+# Be sure to set your database login information on lines 84,87,90,91
+
 # Time Keeper Start
 datestart=$(date +%S)
 
-# Make a call to the Glass API
+# Make a call to the Glass API, set the IP here
 data=$(curl -s http://IP_OF_YOUR_GLASS_DHCP_SERVER:3000/api/get_active_leases)
 
 # Seperate each device entry with a +
