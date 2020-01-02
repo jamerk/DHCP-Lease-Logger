@@ -2,7 +2,7 @@
 
 # Set the following variables after you setup OpenSSH
 # on your windows dhcp server, see README.md for instructions
-set username DOMAIN_USER
+set username DOMAIN_OR_LOCAL_USER
 set password A_SECURE_PASSWORD
 set server ServerName
 
