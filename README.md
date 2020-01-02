@@ -6,7 +6,7 @@ Windows DHCP Server (Via Bash/PowerShell over SSH)<br>
 Linux ISC DHCP Server via Glass API (https://github.com/Akkadius/glass-isc-dhcp)<br>
 <br><br>
 ## General Setup<br>
-If you are using the Windows piece please also see the ReadMe in the Windows DHCP Server folder.<br>
+If you are using the Windows piece please also see the ReadMe in the Windows DHCP Server folder.<br><br>
 Setup a MySQL/MariaDB Database called devicedb with a table called devices that looks like this:<br>
 ```
 +--------------+-------------+------+-----+---------+----------------+
