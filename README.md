@@ -32,8 +32,8 @@ And here are the two scripts you need for Windows DHCP servers, getting the DHCP
 20 * * * * root bash /root/Device_Logger/getwinleases.sh
 35 * * * * root bash /root/Device_Logger/winlogleases.sh
 ```
-<br>
-## Credits
+
+## Credits<br>
 https://stackoverflow.com/questions/27004013/grep-through-array-in-bash<br>
 https://stackoverflow.com/questions/2576622/bash-assign-grep-regex-results-to-array<br>
 https://stackoverflow.com/questions/29228769/mac-address-regex-for-javascript<br>
