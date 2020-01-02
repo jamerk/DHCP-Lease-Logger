@@ -1,12 +1,20 @@
 #!/bin/bash
 
-# Be sure to set your database login information on lines 84,87,90,91
-
 # Time Keeper Start
 datestart=$(date +%S)
 
-# Make a call to the Glass API, set the IP here
-data=$(curl -s http://IP_OF_YOUR_GLASS_DHCP_SERVER:3000/api/get_active_leases)
+# Log all of the output of this script
+exec 3>&1 4>&2
+trap 'exec 2>&4 1>&3' 0 1 2 3
+#exec 1>>/var/log/logleasesdb.log 2>&1
+exec 1>>/var/log/logleasesdb.log 2> /dev/null
+
+# Uncomment the line above with 2>&1 on the end and comment the line
+# with /dev/null on the end to get a tiny bit more verbosity
+
+
+# Make a call to the Glass API
+data=$(curl -s http://10.10.111.2:3000/api/get_active_leases)
 
 # Seperate each device entry with a +
 plusdata=$(sed -r 's/},"1/+1/g' <<<"$data")
@@ -69,8 +77,6 @@ done
 
 ## END FILTERING ##
 
-# Echo total DHCP leases currently active
-echo $tvcount;
 
 # Combine each value of the above arrays into one array
 finalcount=0
@@ -81,18 +87,22 @@ do
 done
 
 # Insert each row of values from the above array into the table of devices
-for i in "${finalarray[@]}"; do echo "INSERT INTO devices (mac, datetime, hostname, manufacturer, ip) values ($i);" | mysql -u YOUR_DB_USER -pYOUR_DB_USER_PASSWORD devicedb; done
+for i in "${finalarray[@]}"; do echo "INSERT INTO devices (mac, datetime, hostname, manufacturer, ip) values ($i);" | mysql -u deb_sql -pd4nk0v1510n45 devicedb; done
 
 # Re-count the ID column
-echo "SET @count = 0; UPDATE devices SET devices.id = @count:= @count + 1; ALTER TABLE devices AUTO_INCREMENT = 1;" | mysql -u YOUR_DB_USER -pYOUR_DB_USER_PASSWORD devicedb;
+echo "SET @count = 0; UPDATE devices SET devices.id = @count:= @count + 1; ALTER TABLE devices AUTO_INCREMENT = 1;" | mysql -u deb_sql -pd4nk0v1510n45 devicedb;
 
 # Replace NULL values in hostname and manufacturer with UNKNOWN
-echo "UPDATE devices SET hostname='UNKNOWN' WHERE hostname='';" | mysql -u YOUR_DB_USER -pYOUR_DB_USER_PASSWORD devicedb;
-echo "UPDATE devices SET manufacturer='NoneFound' WHERE manufacturer='';" | mysql -u YOUR_DB_USER -pYOUR_DB_USER_PASSWORD devicedb;
+echo "UPDATE devices SET hostname='UNKNOWN' WHERE hostname='';" | mysql -u deb_sql -pd4nk0v1510n45 devicedb;
+echo "UPDATE devices SET manufacturer='NoneFound' WHERE manufacturer='';" | mysql -u deb_sql -pd4nk0v1510n45 devicedb;
 
 
 # Time Keeper End
 dateend=$(date +%S)
 
+# Set time for the log
+logtime=$(date)
+
 # Time Keeper MATH to show the run time of the script
-echo "This script took" "$(($dateend-$datestart))" "Seconds to run."
+# Also showing the total leases found
+echo $logtime" This script took" "$(($dateend-$datestart))" "Seconds to run and found" $tvcount "total leases."
