@@ -5,3 +5,5 @@ First, if you do not have a Linux server FEAR NOT! I made a PowerShell version t
 ## Setup
 First we need to setup OpenSSH Server on the Windows DHCP Server, it's a little tedious but you can use Microsoft's instructions found here: https://docs.microsoft.com/en-us/powershell/scripting/learn/remoting/ssh-remoting-in-powershell-core?view=powershell-6<br>
 Refer to the section labeled 'Set up on a Windows computer', when you're done go to Services and set the 'OpenSSH SSH Server' service to Automatic (I found mine was set to manual). Also be sure to allow Port TCP/22 on your Windows Firewall if it is in use.<br><br>
+Next modify the variables in getwinleases.sh, the account that needs to be made in either Windows Active Directory or locally needs to be a Domain Admin or local admin and be in the DHCP Administrators group. <br><br>
+And 
