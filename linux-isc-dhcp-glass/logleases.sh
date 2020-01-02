@@ -19,6 +19,8 @@ data=$(curl -s http://<IP Of Your DHCP Server>:3000/api/get_active_leases)
 # Seperate each device entry with a +
 plusdata=$(sed -r 's/},"1/+1/g' <<<"$data")
 
+# Remove spaces and replace with _
+# This mainly affects the MAC vendor column, it wasn't working without it
 arraysp=$(sed -r 's/ /_/g' <<<"$plusdata")
 
 # Split each device entry into their own array position
@@ -92,7 +94,7 @@ for i in "${finalarray[@]}"; do echo "INSERT INTO devices (mac, datetime, hostna
 # Re-count the ID column
 echo "SET @count = 0; UPDATE devices SET devices.id = @count:= @count + 1; ALTER TABLE devices AUTO_INCREMENT = 1;" | mysql -u OUR-SQL-USER -pSQL-USER-PASSWORD devicedb;
 
-# Replace NULL values in hostname and manufacturer with UNKNOWN
+# Replace empty values in hostname and manufacturer with UNKNOWN and NoneFound
 echo "UPDATE devices SET hostname='UNKNOWN' WHERE hostname='';" | mysql -u OUR-SQL-USER -pSQL-USER-PASSWORD devicedb;
 echo "UPDATE devices SET manufacturer='NoneFound' WHERE manufacturer='';" | mysql -u OUR-SQL-USER -pSQL-USER-PASSWORD devicedb;
 
