@@ -2,10 +2,11 @@
 A set of scripts for logging MAC, hostname, IP, and MAC Vendor from various DHCP Servers to a MySQL DB
 <br><br>
 Current DHCP Servers Supported:<br>
-Windows DHCP Server (Via PowerShell over SSH) [Almost Ready!]<br>
+Windows DHCP Server (Via Bash/PowerShell over SSH)<br>
 Linux ISC DHCP Server via Glass API (https://github.com/Akkadius/glass-isc-dhcp)<br>
 <br><br>
 ## General Setup<br>
+If you are using the Windows piece please also see the ReadMe in the Windows DHCP Server folder.<br>
 Setup a MySQL/MariaDB Database called devicedb with a table called devices that looks like this:<br>
 ```
 +--------------+-------------+------+-----+---------+----------------+
