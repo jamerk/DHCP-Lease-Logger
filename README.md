@@ -24,7 +24,7 @@ I would recommend running these scripts from the same server the database lives 
 To have your database of client devices populated regularly you should have the script(s) run as cron jobs, I store mine in a file at /etc/cron.d/dhcplogger. Here is an example of running the Linux DHCP logging script every hour and then running an export of the SQL database every day at 11:10 PM so my Borg backup job can pick it up at 12 AM:
 ```
 0 * * * * root bash /root/Device_Logger/logleases.sh
-10 23 * * * root mysqldump -u deb_sql -pd4nk0v1510n45 devicedb > /root/Device_Logger/DB-BACKUPS/devicedb.sql
+10 23 * * * root mysqldump -u YOUR-SQL-USER -pYOUR-SQL-USER-PASSWORD devicedb > /root/Device_Logger/DB-BACKUPS/devicedb.sql
 ```
 And here are the two scripts you need for Windows DHCP servers, getting the DHCP leases CSV every 20 minutes into the hour and adding to the database every 35 minutes into the hour:
 ```
