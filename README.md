@@ -32,7 +32,10 @@ And here are the two scripts you need for Windows DHCP servers, getting the DHCP
 20 * * * * root bash /root/Device_Logger/getwinleases.sh
 35 * * * * root bash /root/Device_Logger/winlogleases.sh
 ```
-
+## To Do <br>
+-> Accurate MAC Vendor matching via https://macvendors.co/api <br>
+-> ISC DHCP Reservation parsing, these do not show up in Glass so they have to be retrieved manually <br>
+<br>
 ## Credits<br>
 https://stackoverflow.com/questions/27004013/grep-through-array-in-bash<br>
 https://stackoverflow.com/questions/2576622/bash-assign-grep-regex-results-to-array<br>
