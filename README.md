@@ -22,11 +22,17 @@ Setup a MySQL/MariaDB Database called devicedb with a table called devices that 
 ```
 Both hostname and manufacturer varchar limits can be adjusted, I have them large so nearly any length can be accepted. The most important thing is to set the mac column as unique so no duplicates will be inserted.<br><br>
 I would recommend running these scripts from the same server the database lives on (Otherwise you'll need to make some changes in the scripts) and creating a folder for these scripts to live in on that server, especially for the windows dhcp server scripts.<br><br>
+To add reservations to the database from an ISC DHCP server we need to directly read the dhcpd.conf file. The scripts getreserv.sh and logreservs.sh accomplish this. They need to be in the same directory to run correctly.<br><br>
 To have your database of client devices populated regularly you should have the script(s) run as cron jobs, I store mine in a file at /etc/cron.d/dhcplogger. Here is an example of running the Linux DHCP logging script every hour and then running an export of the SQL database every day at 11:10 PM so my Borg backup job can pick it up at 12 AM, I am running the script as root but you do not have to and am storing the script in a folder in the root home folder):
 ```
 0 * * * * root bash /root/Device_Logger/logleases.sh
 10 23 * * * root mysqldump -u YOUR-SQL-USER -pYOUR-SQL-USER-PASSWORD devicedb > /root/Device_Logger/DB-BACKUPS/devicedb.sql
 ```
+Also here is a cron entry for getting the reservations from your ISC DHCP Server. This does not need to run very often unless you are making regular changes to your DHCP reservations, mine runs on the 1st of each month at 2 AM:
+```
+0 2 1 * * root bash /root/Device_Logger/logreserv.sh
+```
+
 And here are the two scripts you need for Windows DHCP servers, getting the DHCP leases CSV every 20 minutes into the hour and adding to the database every 35 minutes into the hour, I am running them as root but you do not have to and am storing the scripts in a folder in the root home folder):
 ```
 20 * * * * root bash /root/Device_Logger/getwinleases.sh
@@ -34,7 +40,6 @@ And here are the two scripts you need for Windows DHCP servers, getting the DHCP
 ```
 ## To Do <br>
 -> Accurate MAC Vendor matching via https://macvendors.co/api <br>
--> ISC DHCP Reservation parsing, these do not show up in Glass so they have to be retrieved manually <br>
 <br>
 ## Credits<br>
 https://stackoverflow.com/questions/27004013/grep-through-array-in-bash<br>
