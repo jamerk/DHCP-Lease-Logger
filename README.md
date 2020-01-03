@@ -40,6 +40,7 @@ And here are the two scripts you need for Windows DHCP servers, getting the DHCP
 ```
 ## To Do <br>
 -> Accurate MAC Vendor matching via https://macvendors.co/api <br>
+-> Create a version for Sonicwall and Fortinet firewall DHCP servers<br>
 <br>
 ## Credits<br>
 https://stackoverflow.com/questions/27004013/grep-through-array-in-bash<br>
