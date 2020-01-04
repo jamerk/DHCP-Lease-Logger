@@ -30,7 +30,7 @@ To have your database of client devices populated regularly you should have the 
 ```
 Also here is a cron entry for getting the reservations from your ISC DHCP Server. This does not need to run very often unless you are making regular changes to your DHCP reservations, mine runs on the 1st of each month at 2 AM:
 ```
-0 2 1 * * root bash /root/Device_Logger/logreserv.sh
+0 2 1 * * root bash /root/Device_Logger/logreservs.sh
 ```
 
 And here are the two scripts you need for Windows DHCP servers, getting the DHCP leases CSV every 20 minutes into the hour and adding to the database every 35 minutes into the hour, I am running them as root but you do not have to and am storing the scripts in a folder in the root home folder):
