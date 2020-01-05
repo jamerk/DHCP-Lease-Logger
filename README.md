@@ -35,7 +35,7 @@ Also here is a cron entry for getting the reservations from your ISC DHCP Server
 
 And here are the two scripts you need for Windows DHCP servers, getting the DHCP leases CSV every 20 minutes into the hour and adding to the database every 35 minutes into the hour, I am running them as root but you do not have to and am storing the scripts in a folder in the root home folder):
 ```
-20 * * * * root bash /root/Device_Logger/getwinleases.sh
+20 * * * * root /root/Device_Logger/getwinleases.sh
 35 * * * * root bash /root/Device_Logger/winlogleases.sh
 ```
 ## To Do <br>
