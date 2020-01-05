@@ -16,4 +16,7 @@ https://stackoverflow.com/questions/37732/what-is-the-regex-pattern-for-datetime
 https://stackoverflow.com/questions/8857705/deleting-the-first-two-lines-of-a-file-using-bash-or-awk-or-sed-or-whatever<br>
 https://stackoverflow.com/questions/7124778/how-to-match-anything-up-until-this-sequence-of-characters-in-a-regular-expres<br>
 https://stackoverflow.com/questions/1521462/looping-through-the-content-of-a-file-in-bash<br>
-https://stackoverflow.com/questions/45207167/iterate-over-and-replace-element-in-array<br>
+https://stackoverflow.com/questions/45207167/iterate-over-and-replace-element-in-array<br><br>
+
+## Issues
+-> Some leases are randomly not in the CSV, I'm working on this... <br><br>
