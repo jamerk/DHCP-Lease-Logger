@@ -20,8 +20,7 @@ exec 1>>/var/log/winlogleasesdb.log 2> /dev/null
 sed -e 's/"//g' /root/Device_Logger/dhcpleases.csv > /root/Device_Logger/dhcpleasesuno.csv
 
 # Remove domain name from hostnames
-sed -e 's/.infineonrw.internal//g' /root/Device_Logger/dhcpleasesuno.csv > /root/Device_Logger/dhcpleasesdo.csv
-sed -e 's/.domain//g' /root/Device_Logger/dhcpleasesdo.csv > /root/Device_Logger/dhcpleasesmod.csv
+sed -e 's/.YOUR.DOMAIN//g' /root/Device_Logger/dhcpleasesuno.csv > /root/Device_Logger/dhcpleasesmod.csv
 
 # Get each MAC address from column in the CSV
 dwinmacs=( $(cut -d ',' -f2 /root/Device_Logger/dhcpleasesmod.csv ) )
@@ -54,10 +53,9 @@ sed -e 's/\s\+/_/g' /root/Device_Logger/dhcpleasesmod.csv > /root/Device_Logger/
 winetcount=0
 while IFS="" read -r winexp || [ -n "$winexp" ]
 do
-  winexps[winetcount]=$(grep -oP '(\d{2}\/\d{2}\/\d{4}_)(\d{1,2}:\d{2}:\d{2}_)(AM|PM)' <<< $winexp)
+  winexps[winetcount]=$(grep -oP '(\d{1,2}\/\d{1,2}\/\d{4}_)(\d{1,2}:\d{2}:\d{2}_)(AM|PM)' <<< $winexp)
   winetcount=$((winetcount + 1))
 done < /root/Device_Logger/dhcpleasesfinal.csv
-
 
 # Loop through each array and create a new array with part of our SQL query
 wincount=0
@@ -68,13 +66,13 @@ do
 done
 
 # Insert each row of values from the above array into the table of devices
-for i in "${winfinal[@]}"; do echo "INSERT INTO devices (mac, datetime, hostname, ip) values ($i);" | mysql -u deb_sql -pd4nk0v1510n45 devicedb; done
+for i in "${winfinal[@]}"; do echo "INSERT INTO devices (mac, datetime, hostname, ip) values ($i);" | mysql -u YOUR-SQL-USER -pYOUR-SQL-USER-PASSWORD devicedb; done
 
 # Re-count the ID column
-echo "SET @count = 0; UPDATE devices SET devices.id = @count:= @count + 1; ALTER TABLE devices AUTO_INCREMENT = 1;" | mysql -u deb_sql -pd4nk0v1510n45 devicedb;
+echo "SET @count = 0; UPDATE devices SET devices.id = @count:= @count + 1; ALTER TABLE devices AUTO_INCREMENT = 1;" | mysql -u YOUR-SQL-USER -pYOUR-SQL-USER-PASSWORD devicedb;
 
 # Mark empty datetime values as Reservations
-echo "UPDATE devices SET datetime='Reservation' WHERE datetime='';" | mysql -u deb_sql -pd4nk0v1510n45 devicedb;
+echo "UPDATE devices SET datetime='Reservation' WHERE datetime='';" | mysql -u YOUR-SQL-USER -pYOUR-SQL-USER-PASSWORD devicedb;
 
 # Set time for the log
 logtime=$(date)
