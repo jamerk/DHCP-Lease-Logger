@@ -21,10 +21,10 @@ expect eof
 # Spawn one last bash session to clean up the CSV a little bit, we're removing the top two lines
 # then remove the two now blank lines
 spawn bash
-send {sed -e s/"#TYPE Selected.Microsoft.Management.Infrastructure.CimInstance"//g -i dhcpleases.csv}
+send {sed -e s/"#TYPE Selected.Microsoft.Management.Infrastructure.CimInstance"//g -i /root/Device_Logger/dhcpleases.csv}
 send "\r"
-send {sed -e s/"[\"]Hostname[\"],[\"]ClientId[\"],[\"]IPAddress[\"],[\"]LeaseExpiryTime[\"]"//g -i dhcpleases.csv}
+send {sed -e s/"[\"]Hostname[\"],[\"]ClientId[\"],[\"]IPAddress[\"],[\"]LeaseExpiryTime[\"]"//g -i /root/Device_Logger/dhcpleases.csv}
 send "\r"
-send {sed '1,2d' -i dhcpleases.csv}
+send {sed '1,2d' -i /root/Device_Logger/dhcpleases.csv}
 send "\r"
 expect eof
