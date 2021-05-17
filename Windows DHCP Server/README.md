@@ -1,7 +1,7 @@
 # Windows DHCP Lease Logger
 A pair of scripts for logging MAC, hostname, and IP from a Windows DHCP Server to a MySQL DB on a Linux server.<br>
 There are two scripts, one (getwinleases.sh) logs into the Windows DHCP Server via SSH and uses PowerShell to export the DHCP leases to a CSV and copy it to your Linux server that the scripts are running on then the second script (winlogleases.sh) cleans up the data in the CSV and imports it to your database running on the same Linux server.<br><br>
-First, if you do not have a Linux server FEAR NOT! I made a PowerShell version that uses Microsoft SQL as the Database. Find it here: https://github.com/ITGoon/WinDHCPLeaseLogger <br><br>
+First, if you do not have a Linux server FEAR NOT! I made a PowerShell version that uses Microsoft SQL as the Database. Find it here: https://github.com/jamerk/WinDHCPLeaseLogger <br><br>
 These scripts have all been tested on a domain joined Windows 2012 R2 DHCP Server.<br><br>
 ## Setup
 First we need to setup OpenSSH Server on the Windows DHCP Server, it's a little tedious but you can use Microsoft's instructions found here: https://docs.microsoft.com/en-us/powershell/scripting/learn/remoting/ssh-remoting-in-powershell-core?view=powershell-6<br>
